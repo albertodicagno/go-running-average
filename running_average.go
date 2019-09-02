@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+//RunningAverage defines the data structure holding samples, min/max and average values, along with internal values and counters
 type RunningAverage struct {
 	SampleCount uint
 	Samples     []float64
@@ -16,12 +17,14 @@ type RunningAverage struct {
 	sum         float64
 }
 
+//NewRunningAverage returns a pointer to a new RunningAverage object with sample size of numSamples
 func NewRunningAverage(numSamples uint) *RunningAverage {
 	avg := new(RunningAverage)
 	avg.SampleCount = numSamples
 	return avg
 }
 
+//AddSample adds a new sample to the RunningAverage struct
 func (avg *RunningAverage) AddSample(sample float64) {
 	avg.sum -= avg.Samples[avg.cursor]
 	avg.Samples[avg.cursor] = sample
@@ -46,6 +49,7 @@ func (avg *RunningAverage) AddSample(sample float64) {
 	}
 }
 
+//Clear resets the whole RunningAverage struct
 func (avg *RunningAverage) Clear() {
 	avg.Min = 0.00
 	avg.Max = 0.00
@@ -58,6 +62,7 @@ func (avg *RunningAverage) Clear() {
 	}
 }
 
+//Fill fills the sample buffer with the value passed as an argument
 func (avg *RunningAverage) Fill(sample float64) {
 	avg.Clear()
 	for i := uint(0); i < avg.SampleCount; i++ {
@@ -65,6 +70,7 @@ func (avg *RunningAverage) Fill(sample float64) {
 	}
 }
 
+//GetAverage computes and returns the average iterating across the whole sample buffer
 func (avg *RunningAverage) GetAverage() (float64, error) {
 	if avg.counter == 0 {
 		return -1, errors.New("average is not yet ready")
@@ -78,7 +84,7 @@ func (avg *RunningAverage) GetAverage() (float64, error) {
 	return avg.sum / float64(avg.counter), nil
 }
 
-
+//GetFastAverage same as GetAverage, but faster since no iteration is made, just using the last computed values for sum and sample count
 func (avg *RunningAverage) GetFastAverage() (float64, error) {
 	if avg.counter == 0 {
 		return -1, errors.New("average is not yet ready")
@@ -87,6 +93,7 @@ func (avg *RunningAverage) GetFastAverage() (float64, error) {
 	return avg.sum / float64(avg.counter), nil
 }
 
+//GetStandardDeviation returns the stdev across the sample buffer
 func (avg *RunningAverage) GetStandardDeviation() (float64, error) {
 	if avg.counter == 0 {
 		return -1, errors.New("average is not yet ready")
@@ -101,9 +108,9 @@ func (avg *RunningAverage) GetStandardDeviation() (float64, error) {
 		return -1, err
 	}
 
-	for i := uint(0); i < avg.counter;  i++{
-		temp += math.Pow(avg.Samples[i] - average, 2)
+	for i := uint(0); i < avg.counter; i++ {
+		temp += math.Pow(avg.Samples[i]-average, 2)
 	}
-	temp = math.Sqrt(temp / float64(avg.counter - 1))
+	temp = math.Sqrt(temp / float64(avg.counter-1))
 	return temp, nil
 }
