@@ -25,8 +25,8 @@ func TestGetAverage(t *testing.T) {
 
 func TestClear(t *testing.T) {
 	ravg.Clear()
-	assert.Equal(t, 0, ravg.Samples[4])
-	assert.Equal(t, 0, ravg.Min)
-	assert.Equal(t, 0, ravg.Max)
-	assert.Equal(t, 0, ravg.Average)
+	assert.Equal(t, 0.0, ravg.Samples[4])
+	assert.Equal(t, 0.0, ravg.Min)
+	assert.Equal(t, 0.0, ravg.Max)
+	assert.Equal(t, 0.0, ravg.Average)
 }
