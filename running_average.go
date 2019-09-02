@@ -21,6 +21,7 @@ type RunningAverage struct {
 func NewRunningAverage(numSamples uint) *RunningAverage {
 	avg := new(RunningAverage)
 	avg.SampleCount = numSamples
+	avg.Samples = make([]float64, avg.SampleCount)
 	return avg
 }
 
