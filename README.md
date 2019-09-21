@@ -4,6 +4,8 @@
 
 Simple and fast Go library for performing running average and standard deviation computations.
 
+### Sample code
+
 ```go
 package main
 
