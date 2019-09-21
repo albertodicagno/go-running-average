@@ -1,6 +1,7 @@
 [![Build Status](https://dev.azure.com/albertodicagno-dev/go-runningaverage_test/_apis/build/status/albertodicagno.runningaverage?branchName=master)](https://dev.azure.com/albertodicagno-dev/go-runningaverage_test/_build/latest?definitionId=4&branchName=master)
 # Go Running average
 ![Running gopher](https://golang.org/doc/gopher/run.png)
+
 Simple and fast Go library for performing running average and standard deviation computations.
 
 ```go
