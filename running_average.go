@@ -7,18 +7,18 @@ import (
 
 //RunningAverage defines the data structure holding samples, min/max and average values, along with internal values and counters
 type RunningAverage struct {
-	SampleCount uint
+	SampleCount uint64
 	Samples     []float64
 	Average     float64
 	Min         float64
 	Max         float64
-	counter     uint
-	cursor      uint
+	counter     uint64
+	cursor      uint64
 	sum         float64
 }
 
 //NewRunningAverage returns a pointer to a new RunningAverage object with sample size of numSamples
-func NewRunningAverage(numSamples uint) *RunningAverage {
+func NewRunningAverage(numSamples uint64) *RunningAverage {
 	avg := new(RunningAverage)
 	avg.SampleCount = numSamples
 	avg.Samples = make([]float64, avg.SampleCount)
@@ -58,7 +58,7 @@ func (avg *RunningAverage) Clear() {
 	avg.counter = 0
 	avg.cursor = 0
 
-	for i := uint(0); i < avg.SampleCount; i++ {
+	for i := uint64(0); i < avg.SampleCount; i++ {
 		avg.Samples[i] = 0.0
 	}
 }
@@ -66,7 +66,7 @@ func (avg *RunningAverage) Clear() {
 //Fill fills the sample buffer with the value passed as an argument
 func (avg *RunningAverage) Fill(sample float64) {
 	avg.Clear()
-	for i := uint(0); i < avg.SampleCount; i++ {
+	for i := uint64(0); i < avg.SampleCount; i++ {
 		avg.AddSample(sample)
 	}
 }
@@ -79,7 +79,7 @@ func (avg *RunningAverage) GetAverage() (float64, error) {
 
 	avg.sum = 0.0
 
-	for i := uint(0); i < avg.counter; i++ {
+	for i := uint64(0); i < avg.counter; i++ {
 		avg.sum += avg.Samples[i]
 	}
 	return avg.sum / float64(avg.counter), nil
@@ -109,7 +109,7 @@ func (avg *RunningAverage) GetStandardDeviation() (float64, error) {
 		return -1, err
 	}
 
-	for i := uint(0); i < avg.counter; i++ {
+	for i := uint64(0); i < avg.counter; i++ {
 		temp += math.Pow(avg.Samples[i]-average, 2)
 	}
 	temp = math.Sqrt(temp / float64(avg.counter-1))
