@@ -1,5 +1,7 @@
 [![Build Status](https://dev.azure.com/albertodicagno-dev/go-runningaverage_test/_apis/build/status/albertodicagno.runningaverage?branchName=master)](https://dev.azure.com/albertodicagno-dev/go-runningaverage_test/_build/latest?definitionId=4&branchName=master)
 [![Documentation](https://godoc.org/github.com/albertodicagno/runningaverage?status.svg)](http://godoc.org/github.com/albertodicagno/runningaverage)
+[![Code coverage](http://gocover.io/_badge/github.com/albertodicagno/runningaverage)](http://gocover.io/github.com/albertodicagno/runningaverage)
+
 # Go Running average
 ![Running gopher](https://golang.org/doc/gopher/run.png)
 
